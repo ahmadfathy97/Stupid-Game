@@ -34,23 +34,50 @@ function setup() {
     y += height/40 +30;
   }
 }
+//bad UX
+// function keyPressed(){
+//   if (keyCode === LEFT_ARROW){
+//     bar.setX(-width * .1)
+//   } else if(keyCode === RIGHT_ARROW){
+//     bar.setX(width * .1)
+//   }
+// }
 
-function keyPressed(){
-  if (keyCode === LEFT_ARROW){
-    bar.setX(-width * .1)
-  } else if(keyCode === RIGHT_ARROW){
-    bar.setX(width * .1)
-  }
+
+//for better UX
+//=========================
+let leftBtnDown = false;
+let rightBtnDown = false;
+leftBtn.onmousedown = ()=>{
+  leftBtnDown = true;
+}
+rightBtn.onmousedown = ()=>{
+  rightBtnDown = true;
 }
 
-
-
-leftBtn.onclick = ()=>{
-  bar.setX(-width * .1)
+leftBtn.onmouseup = ()=>{
+  leftBtnDown = false;
 }
-rightBtn.onclick = ()=>{
-  bar.setX(width * .1)
+rightBtn.onmouseup = ()=>{
+  rightBtnDown = false;
 }
+
+// for mobile
+
+leftBtn.ontouchstart = ()=>{
+  leftBtnDown = true;
+}
+rightBtn.ontouchstart = ()=>{
+  rightBtnDown = true;
+}
+
+leftBtn.ontouchend = ()=>{
+  leftBtnDown = true;
+}
+rightBtn.ontouchend = ()=>{
+  rightBtnDown = true;
+}
+//=================================
 
 rstbtns.forEach((btn) => {
   btn.addEventListener('click', reset)
@@ -82,10 +109,24 @@ function reset(){
 }
 
 function draw() {
+  // for better UX
+  //================================
+  if (keyIsDown(RIGHT_ARROW)) {
+    bar.setX(width * .02)
+  }
+  if (keyIsDown(LEFT_ARROW)) {
+    bar.setX(-width * .02)
+  }
+  if(rightBtnDown) bar.setX(width * .02)
+  if(leftBtnDown) bar.setX(-width * .02)
+  //================================
+
   if(!rocks.length){
     noLoop();
     console.log("well done");
     winner.style.display = 'flex';
+    leftBtnDown = false;
+    rightBtnDown = false;
   }
   background(40);
   rocks.forEach((rock, i) => {
@@ -101,6 +142,8 @@ function draw() {
     noLoop();
     console.log("game over");
     gameOver.style.display = 'flex';
+    leftBtnDown = false;
+    rightBtnDown = false;
   }
   bar.move(width);
   bar.show();

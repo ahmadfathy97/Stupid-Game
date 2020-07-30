@@ -3,13 +3,16 @@ let bar,
     rocks = [],
     rknBl,
     canW,
-    canH;
-
-let leftBtn = document.querySelector('#left-btn'),
-    rightBtn = document.querySelector('#right-btn'),
-    winner = document.querySelector('#winner'),
-    gameOver = document.querySelector('#gameOver'),
-    rstbtns = document.querySelectorAll('.restart');
+    canH,
+    started = false;
+let slctElem = selector => document.querySelector(selector);
+let leftBtn = slctElem('#left-btn'),
+    rightBtn = slctElem('#right-btn'),
+    winner = slctElem('#winner'),
+    gameOver = slctElem('#gameOver'),
+    rstbtns = document.querySelectorAll('.restart'),
+    start = slctElem('#start'),
+    startContainer = slctElem('.start');
 
 function setup() {
   canW = innerWidth -20 <= 650 ? innerWidth -20 : 650;
@@ -108,6 +111,13 @@ function reset(){
   loop();
 }
 
+start.addEventListener('click', startFunc)
+function startFunc() {
+  started = true;
+  loop();
+  startContainer.style.display = 'none'
+}
+
 function draw() {
   // for better UX
   //================================
@@ -120,7 +130,9 @@ function draw() {
   if(rightBtnDown) bar.setX(width * .02)
   if(leftBtnDown) bar.setX(-width * .02)
   //================================
-
+  if(!started){
+    noLoop();
+  }
   if(!rocks.length){
     noLoop();
     console.log("well done");

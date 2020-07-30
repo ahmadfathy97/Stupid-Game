@@ -5,6 +5,7 @@ class WreckingBall {
     this.d = d;
     this.xdir = Math.random() * 2;
     this.ydir = -3;
+    this.speed = 5;
   }
   show(){
     fill(200,200,200);
@@ -15,30 +16,30 @@ class WreckingBall {
     //     max = Math.random(),
     //     rand = Math.random() * ((max - min) * 8);
     if(this.x >= w){
-      this.xdir = -4;
+      this.xdir = -this.speed;
     }
     if(this.x <= 0){
-      this.xdir = 4
+      this.xdir = this.speed
     }
     if(this.y <= 0){
-        this.ydir = 4
+        this.ydir = this.speed
     }
     if(this.y + (this.d/2) >= bar.y &&
       ( this.x + (this.d/2) >= bar.x  && this.x - (this.d/2) <= bar.x + (bar.w) ) ){
-      this.ydir = -4
+      this.ydir = -this.speed
       this.xdir = Math.random() * (Math.random() * 4 - Math.random() * 4)
     }else if(rock){
       if(this.w/2 >= rock.w/2){
-        this.xdir = 4
+        this.xdir = this.speed
       }
       if(this.y >= rock.y){
-        this.ydir = 4;
+        this.ydir = this.speed;
       }
       if(this.w/2 < rock.w/2){
-        this.ydir = -4;
+        this.ydir = -this.speed;
       }
       if(this.y < rock.y){
-        this.ydir = -4;
+        this.ydir = -this.speed;
       }
     }
 

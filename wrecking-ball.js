@@ -27,20 +27,21 @@ class WreckingBall {
       ( this.x + (this.d/2) >= bar.x  && this.x - (this.d/2) <= bar.x + (bar.w) ) ){
       this.ydir = -4
       this.xdir = Math.random() * (Math.random() * 4 - Math.random() * 4)
-    } else if(rock){
-      if(this.x >= rock.x){
+    }else if(rock){
+      if(this.w/2 >= rock.w/2){
         this.xdir = 4
       }
       if(this.y >= rock.y){
         this.ydir = 4;
       }
-      if(this.x < rock.x){
+      if(this.w/2 < rock.w/2){
         this.ydir = -4;
       }
       if(this.y < rock.y){
         this.ydir = -4;
       }
     }
+
     this.x += this.xdir;
     this.y += this.ydir;
 
